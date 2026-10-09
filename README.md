@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.8
+# Etherial Idle: Cazadores — 0.9
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -60,3 +60,6 @@ El campamento incorpora un bestiario visual con monstruos y jefes, vida base de 
 
 ## Presentación RPG 0.8
 Antorchas, cristales y lava con iluminación ambiental; viñeta de profundidad; sombras suaves bajo personajes; reacción al impacto y aparición del siguiente enemigo. Interfaz muestra el nombre del ataque de cada clase y la vida numérica de la criatura. Los iconos del equipo se dibujan en pixel art. El terreno se almacena en caché y solo las capas animadas se redibujan, reduciendo trabajo por cuadro en móvil. Se respeta la preferencia de movimiento reducido.
+
+## Materiales y sprites 0.9
+Detalles de remaches, cota de malla, costuras, bordados, grietas, corteza y escamas. Luz direccional dibujada en armaduras y rostros. Las mejoras de arma ya existentes reciben acabados visuales: base, dorado a partir de +3 y rúnico a partir de +6. Se conserva el poder y precio de las mejoras. El acabado aparece también en los retratos y en la ficha de equipo.
