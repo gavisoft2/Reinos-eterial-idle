@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.31
+# Etherial Idle: Cazadores — 0.32
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -212,7 +212,7 @@ El Mercader de Etherial publica 135 piezas originales: guerrero, arquero y mago 
 
 El catálogo cubre casco, armadura, botas, guantes, secundario de clase, arma de clase, collar, anillo y amuleto. No cambia las restricciones de clase al equipar.
 
-El servidor publica el catálogo permanente al crear o actualizar la base de mercado (`catalogVersion: 2`). Las compras usan saldo Gram y conservan nivel, rareza y marca ⚖. Cada compra entrega una pieza nueva; la oferta original sigue activa con stock ilimitado. El vendedor es un mercader del juego; su cuenta de sistema no permite iniciar sesión como jugador. En pruebas de otros flujos se usa `seedCatalog: false`.
+El servidor publica el catálogo permanente al crear o actualizar la base de mercado (`catalogVersion: 3`). Las compras usan saldo Gram y conservan nivel, rareza y marca ⚖. Cada compra entrega una pieza nueva; la oferta original sigue activa con stock ilimitado. El vendedor es un mercader del juego; su cuenta de sistema no permite iniciar sesión como jugador. En pruebas de otros flujos se usa `seedCatalog: false`.
 
 Si el servidor todavía no está disponible, Ofertas muestra las 135 piezas como catálogo del Mercader de Etherial con las compras desactivadas y un mensaje de conexión pendiente. No se registra una venta local ficticia ni se descuenta saldo. Al conectar, las ofertas disponibles provienen del servidor y reflejan el catálogo permanente y las ofertas únicas de los jugadores.
 
@@ -225,3 +225,23 @@ Cada compra del catálogo crea un registro independiente en `catalogSales`, con 
 `MARKET_OWNER_SESSION` configura la sesión UUID del propietario en el servidor. Las ganancias netas del catálogo se acreditan a esa cuenta y su historial aparece en Mis ventas; el propietario no puede comprar su propio catálogo. Sin propietario configurado, los ingresos quedan en la reserva del mercader (`system-catalog`). Al configurar al propietario se transfieren una sola vez los saldos de reserva y sus registros. Este valor se configura solo en el servidor.
 
 Esto registra y asigna saldo Gram dentro del prototipo. Todavía falta enlazar la dirección pública de la billetera del propietario y habilitar depósitos/retiros verificados en la red TON. No se envían fondos reales a Telegram. El retiro sigue cotizando una comisión del 10%.
+
+### Atributos RPG por pieza 0.32
+
+Todo el equipo nuevo y antiguo, comerciable o ligado, recibe atributos aleatorios persistentes. Se conservan los valores base de ataque, HP y defensa del tipo de pieza; encima se tiran bonos de ataque, HP, defensa, velocidad de ataque, probabilidad de crítico y daño crítico. La cantidad, combinación, calidad y valores varían. Cada atributo muestra su calidad de tirada (1–100).
+
+| Rareza | Bonos aleatorios | Calidad posible |
+|---|---:|---:|
+| Común | 1–2 | 10–45 |
+| Poco común | 1–3 | 20–55 |
+| Raro | 2–4 | 35–70 |
+| Épico | 3–5 | 50–90 |
+| Legendario | 4–6 | 70–100 |
+
+Comunes y poco comunes tienen potencia baja; las siguientes rarezas elevan la potencia además de la calidad y cantidad de tiradas. El nivel aumenta los valores, de forma más moderada para porcentajes. Las piezas existentes reciben su tirada una sola vez al migrarse; los valores no se vuelven a sortear por abrir, equipar o recargar. Las pociones no reciben atributos.
+
+Al equipar se suman los bonos a la ficha y al combate. Velocidad acelera solo el turno ofensivo del héroe, manteniendo el ritmo de enemigos y caminata. Crítico aumenta la probabilidad de golpes críticos, y daño crítico su multiplicador (bono base +50%). Se aplican límites totales: velocidad +100%, crítico 75% y bono de daño crítico adicional +200%. La estimación offline contempla velocidad y daño crítico esperado.
+
+Mochila, ficha y detalles del mercado muestran los bonos y sus calidades. Los críticos aparecen en el registro de combate. La comparación de piezas incluye todas las estadísticas.
+
+Las ventas entre jugadores y retiradas conservan los atributos exactos de la pieza. Cada compra del catálogo permanente genera una instancia nueva y tiradas nuevas; la ficha del catálogo indica expresamente que sus valores son de ejemplo. Los recibos del catálogo guardan los atributos realmente entregados. Los precios de venta y comisiones no cambian.

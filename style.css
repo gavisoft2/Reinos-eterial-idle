@@ -51,3 +51,5 @@ dialog{max-height:85dvh;overflow-y:auto}.bestiary-grid{display:grid;grid-templat
 .market-tabs .market-tab-active{border-color:#e3c994;background:#4c4033;color:#ffe1a4}.market-history-card .market-sale-date{clear:both;padding-top:10px;border-top:1px solid #4b4e5c;color:#c2b8d9;line-height:1.6;font-size:11px}#market-sales-history>p{padding:14px;background:#1b2632;border:1px solid #454b5a;border-radius:4px}
 
 .item-sell{width:100%;margin-top:10px;border-color:#b59364}.item-sell:disabled{opacity:.45}
+
+.affix-list{clear:both;background:#131d29;border:1px solid #465163;padding:10px;margin:12px 0;border-radius:4px}.affix-list small{font-size:9px;letter-spacing:.7px;color:#ceb785}.affix-list p{font-size:11px;margin:7px 0;line-height:1.5;color:#c7d9c5}.item-stats{line-height:1.8}.sheet-bottom{line-height:1.7}
