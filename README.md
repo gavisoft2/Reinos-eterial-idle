@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.10
+# Etherial Idle: Cazadores — 0.11
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -66,3 +66,7 @@ Detalles de remaches, cota de malla, costuras, bordados, grietas, corteza y esca
 
 ## Rostros y ojos 0.10
 Ojos visibles en ambos lados del rostro de los héroes, iris por clase, pupilas, reflejos, cejas y párpados. El guerrero, la arquera y el mago tienen expresiones y detalles faciales propios. Parpadeo breve en reposo, desactivado cuando el usuario prefiere movimiento reducido. Los mobs reciben ojos y bocas según su especie: pupilas de reptil, ojos luminosos en no muertos, cuencas y colmillos.
+
+## Criaturas y equipo 0.11
+
+Los ocho mobs reciben anatomía y materiales propios: slime translúcido con brotes, guardián con dedos de raíces y corazón de madera, murciélago con nervaduras y garras, gólem con cuarzo facetado, soldado esqueleto con coraza y escudo, nigromante con hombreras de hueso y cadenas, bestia volcánica con placas de obsidiana y dragón con espinas y escamas. Las membranas siguen las dos poses de vuelo existentes. Los detalles se guardan en la caché de sprites y se reutilizan en combate y bestiario.
