@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.19
+# Etherial Idle: Cazadores — 0.20
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -104,3 +104,7 @@ Nueve espacios visibles: casco, armadura, botas, guantes, secundario de clase, a
 ## Equipo exclusivo por clase 0.19
 
 Todas las piezas de los nueve slots tienen clase, incluidos casco, botas, guantes, collar, anillo y amuleto. Solo las pociones son compartidas. El motor y la interfaz rechazan equipo de otra clase; cambiar de héroe retira piezas incompatibles. Hay un conjunto completo para cada clase con capucha y cuero para arquera, diadema y piezas rúnicas para mago, y acero y remaches para guerrero. La primera elección de héroe adapta el kit inicial de accesorios a esa clase. Los antiguos accesorios compartidos se convierten a la clase activa una sola vez al cargar, conservando nivel y rareza. Los jefes entregan únicamente equipo de la clase activa.
+
+## Ilustraciones de objetos 0.20
+
+Los iconos se redibujan a doble resolución con siluetas propias: espada diagonal, arco curvado, báculo engastado, placas de armadura, guantes con dedos, botas con suelas, escudo con borde metálico, libro en perspectiva, carcaj con flechas y joyas facetadas. Los materiales tienen sombras, luces, costuras y remaches. Las rarezas altas muestran señales de encantamiento y el nivel añade marcas discretas. Las ilustraciones se guardan en caché por tipo, rareza y rango de nivel, y se usan en mochila, detalles y ficha.
