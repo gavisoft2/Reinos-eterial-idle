@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.33
+# Etherial Idle: Cazadores — 0.34
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -73,7 +73,7 @@ Los ocho mobs reciben anatomía y materiales propios: slime translúcido con bro
 
 ## Combate por turnos automáticos 0.12
 
-El héroe ataca y, si el mob sobrevive, el enemigo responde en el siguiente pulso (600 ms por acción). Cada clase usa automáticamente su habilidad al estar lista y tener 10 maná; después espera 55 segundos reales antes de repetirla. Las victorias restauran un 12% de la vida máxima; caer inicia tres pulsos de recuperación sin premios ni pérdida de Blez. La pausa congela los turnos y la recuperación. El medidor muestra los segundos restantes de recarga y el registro conserva los últimos cuatro eventos. Ataques enemigos, retroceso, daño flotante y destellos de habilidades siguen los eventos reales del motor.
+El héroe ataca y, si el mob sobrevive, el enemigo responde en el siguiente pulso (600 ms por acción). Cada clase usa automáticamente sus habilidades desbloqueadas al estar lista y tener 10 maná; después espera 55 segundos reales antes de repetirla. Las victorias restauran un 12% de la vida máxima; caer inicia tres pulsos de recuperación sin premios ni pérdida de Blez. La pausa congela los turnos y la recuperación. El medidor muestra los segundos restantes de recarga y el registro conserva los últimos cuatro eventos. Ataques enemigos, retroceso, daño flotante y destellos de habilidades siguen los eventos reales del motor.
 
 ## Recorrido del mundo 0.13
 
@@ -251,5 +251,17 @@ Las ventas entre jugadores y retiradas conservan los atributos exactos de la pie
 - Guerrero: Corte del Guardián, tajo cuerpo a cuerpo, daño ×1.8, arco luminoso y onda de impacto dorada.
 - Arquero: Flecha perforante, disparo a distancia, daño ×2, flecha con estela verde e impacto.
 - Mago: Estallido arcano, hechizo a distancia, daño ×2.2, círculo de runas, proyectil y explosión violeta.
-- Una habilidad por clase, lista en la primera pelea; activación automática en su turno con al menos 10 maná. Recarga de 55 segundos desde el uso, independiente por clase y guardada en la partida. Viajar, morir, cambiar de héroe y recargar la página conservan el plazo. El tiempo real transcurre también en pausa, pero no permite atacar mientras está pausado.
+- Tres habilidades por clase, desbloqueadas en niveles 3, 10 y 20; activación automática en su turno con al menos 10 maná. Recarga de 55 segundos desde el uso, independiente por clase y guardada en la partida. Viajar, morir, cambiar de héroe y recargar la página conservan el plazo. El tiempo real transcurre también en pausa, pero no permite atacar mientras está pausado.
 - Efectos de ataques básicos y habilidades conservan su objetivo y completan su animación incluso cuando el golpe mata al mob o comienza la caminata. Se respeta la preferencia de movimiento reducido.
+
+
+### Progresión de habilidades 0.34
+Nivel máximo del personaje: **50**. Al alcanzar el límite se detiene la acumulación de EXP; partidas antiguas superiores se ajustan a 50 sin perder inventario ni monedas.
+
+| Clase | Nv. 3 | Nv. 10 | Nv. 20 |
+| --- | --- | --- | --- |
+| Guerrero | Corte del Guardián ×1.8 | Doble tajo ×2.5 | Impacto del titán ×3.4 |
+| Arquero | Flecha perforante ×2 | Disparo gemelo ×2.7 | Flecha astral ×3.6 |
+| Mago | Estallido arcano ×2.2 | Lanza de hielo ×2.9 | Meteorito ×3.8 |
+
+Cada habilidad cuesta 10 maná y tiene 55 segundos de recarga propia. El motor usa una habilidad disponible por turno de héroe, en orden de desbloqueo; sigue con ataques básicos si ninguna está disponible. Las recargas se guardan por clase y habilidad. La recarga antigua de cada clase migra a su primera habilidad. El panel muestra las tres piezas, sus requisitos, multiplicador y segundos restantes; sus efectos distinguen tajo doble, impacto, flechas gemelas/astrales, hielo y meteorito.
