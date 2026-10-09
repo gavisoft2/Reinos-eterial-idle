@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.17
+# Etherial Idle: Cazadores — 0.18
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -96,3 +96,7 @@ El mundo crece a diez regiones de diez stages (100 en total). Las nuevas regione
 Botón flotante con mochila pixelada en el lateral izquierdo. Abre un inventario de 20 espacios con objetos visibles y cantidades. Cada ampliación agrega dos espacios: 200, 400, 600 Blez y así sucesivamente. Las pociones se apilan hasta 100 por espacio; el sobrante pasa a otro espacio y la inserción devuelve lo que no cabe. Cada objeto abre sus estadísticas, comparación y acción de equipar o usar; hay botones para volver y cerrar. Arma, armadura, botas y amuleto aportan estadísticas reales, respetan las clases y permanecen en su espacio marcados como equipados. Se incluye un kit inicial de prueba con armas de las tres clases, vestimentas, botas, amuleto y cinco pociones. El inventario, las ampliaciones y el equipo se guardan junto con la partida; las partidas anteriores reciben el kit una sola vez al migrar. Defensa reduce el daño por mob con mínimo uno, y equipar vida adicional no cura instantáneamente. Las pociones recuperan 40 de vida y no pueden usarse a vida completa ni durante la recuperación tras morir.
 
 Cada encuentro vencido entrega una poción de vida si queda espacio. Si la mochila está llena, el botín Blez se entrega igualmente y la escena indica que la poción no pudo guardarse.
+
+## Ficha completa de equipamiento 0.18
+
+Nueve espacios visibles: casco, armadura, botas, guantes, secundario de clase, arma, collar, anillo y amuleto. El secundario es escudo para guerrero, libro para mago y carcaj para arquera; las armas siguen las mismas restricciones de clase. Tocar un espacio vacío abre la mochila filtrada; tocar uno equipado abre la pieza con opción de desequipar. Los objetos permanecen en la mochila y solo una pieza aporta bonos por espacio. Nivel y rareza aumentan ataque, vida y defensa: factor de nivel 1 + 0.15 × (nivel − 1), multiplicado por rareza (Común 1, Poco común 1.25, Raro 1.6, Épico 2.1, Legendario 2.8), redondeado hacia abajo. Los jefes entregan una pieza compatible, con nivel y rareza según el área si cabe en la mochila. Se conservan metadatos y equipo al guardar. Al migrar una mochila antigua, se añaden las siete piezas nuevas en los espacios disponibles una sola vez.
