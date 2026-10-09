@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.30
+# Etherial Idle: Cazadores — 0.31
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -212,6 +212,16 @@ El Mercader de Etherial publica 135 piezas originales: guerrero, arquero y mago 
 
 El catálogo cubre casco, armadura, botas, guantes, secundario de clase, arma de clase, collar, anillo y amuleto. No cambia las restricciones de clase al equipar.
 
-El servidor publica este stock inicial una sola vez, al crear o actualizar la base de mercado (`catalogVersion: 1`). Las compras usan saldo Gram y conservan nivel, rareza y marca ⚖. Las piezas vendidas no se reponen al reiniciar. El vendedor es un mercader del juego; su cuenta de sistema no permite iniciar sesión como jugador. En pruebas de otros flujos se usa `seedCatalog: false`.
+El servidor publica el catálogo permanente al crear o actualizar la base de mercado (`catalogVersion: 2`). Las compras usan saldo Gram y conservan nivel, rareza y marca ⚖. Cada compra entrega una pieza nueva; la oferta original sigue activa con stock ilimitado. El vendedor es un mercader del juego; su cuenta de sistema no permite iniciar sesión como jugador. En pruebas de otros flujos se usa `seedCatalog: false`.
 
-Si el servidor todavía no está disponible, Ofertas muestra las 135 piezas como catálogo del Mercader de Etherial con las compras desactivadas y un mensaje de conexión pendiente. No se registra una venta local ficticia ni se descuenta saldo. Al conectar, las ofertas disponibles provienen del servidor y reflejan el stock realmente restante.
+Si el servidor todavía no está disponible, Ofertas muestra las 135 piezas como catálogo del Mercader de Etherial con las compras desactivadas y un mensaje de conexión pendiente. No se registra una venta local ficticia ni se descuenta saldo. Al conectar, las ofertas disponibles provienen del servidor y reflejan el catálogo permanente y las ofertas únicas de los jugadores.
+
+### Stock permanente y ganancias del propietario 0.31
+
+Las 135 ofertas del Mercader de Etherial muestran Stock permanente ∞. Comprar no agota ni retira la oferta: cada comprador recibe una copia nueva con la misma clase, nivel, rareza y marca de comerciable. Dos compradores pueden adquirir el mismo artículo simultáneamente. Las publicaciones de jugadores conservan su comportamiento de pieza única.
+
+Cada compra del catálogo crea un registro independiente en `catalogSales`, con un ID único, referencia de oferta, comprador, fecha/hora, bruto, comisión del 5% y neto. `ownerEarnings` acumula bruto, neto, comisiones y cantidad de ventas. La migración restaura como permanentes las ofertas del catálogo vendidas anteriormente, conservando sus registros.
+
+`MARKET_OWNER_SESSION` configura la sesión UUID del propietario en el servidor. Las ganancias netas del catálogo se acreditan a esa cuenta y su historial aparece en Mis ventas; el propietario no puede comprar su propio catálogo. Sin propietario configurado, los ingresos quedan en la reserva del mercader (`system-catalog`). Al configurar al propietario se transfieren una sola vez los saldos de reserva y sus registros. Este valor se configura solo en el servidor.
+
+Esto registra y asigna saldo Gram dentro del prototipo. Todavía falta enlazar la dirección pública de la billetera del propietario y habilitar depósitos/retiros verificados en la red TON. No se envían fondos reales a Telegram. El retiro sigue cotizando una comisión del 10%.
