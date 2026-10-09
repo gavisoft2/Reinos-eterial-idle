@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.29
+# Etherial Idle: Cazadores — 0.30
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -133,7 +133,7 @@ Todas las clases tienen maná (100 + 5 por nivel adicional). Cada habilidad cons
 
 ## Mercado Gram y retiros 0.27
 
-El botón flotante ⚖ del lateral izquierdo abre una cuadrícula de slots. Cada oferta muestra el ítem, rareza, nivel y precio en Gram. Toca un slot para ver sus estadísticas, vendedor y botón de compra. Los espacios vacíos se distinguen claramente; en GitHub Pages se muestra la cuadrícula vacía y el estado de conexión, sin simular ofertas de otros jugadores.
+El botón flotante ⚖ del lateral izquierdo abre una cuadrícula de slots. Cada oferta muestra el ítem, rareza, nivel y precio en Gram. Toca un slot para ver sus estadísticas, vendedor y botón de compra. Los espacios vacíos se distinguen claramente; en GitHub Pages se muestra el catálogo del Mercader de Etherial y el estado de conexión, sin simular ofertas de otros jugadores.
 
 Vender equipo abre directamente la mochila filtrada por equipo comerciable. Al seleccionar una pieza se abre su ficha con ilustración, estadísticas, precio y botón Poner a la venta. El precio usa hasta dos decimales y respeta el mínimo de su rareza (máximo 1,000,000 Gram). Publicar aparta la pieza; retirar devuelve el equipo. Solo se vende equipamiento comerciable y desequipado. Los slots crecen con las ofertas; no se mantiene el antiguo límite de 20 publicaciones. La compra entrega la misma pieza con nivel y rareza; se rechaza sin saldo Gram o espacio en la mochila. Las compras simultáneas no duplican un objeto.
 
@@ -205,3 +205,13 @@ La ventana de estadísticas conserva Equipar/Desequipar y añade un botón de ve
 | Legendario | 100 |
 
 No se pueden vender piezas equipadas; primero se desequipan. Las pociones mantienen sus botones de uso y no se venden. Las piezas comerciables no pueden liquidarse mediante la venta Blez. El retiro de la pieza y el saldo se guardan juntos en la partida; una segunda venta del mismo espacio vacío no vuelve a pagar. La venta Blez funciona en la página estática, y publicar en Gram sigue requiriendo el servidor compartido.
+
+### Publicación de sets completos 0.30
+
+El Mercader de Etherial publica 135 piezas originales: guerrero, arquero y mago × nueve slots × cinco rarezas. Cada pieza tiene nivel 1 y marca de comerciable. Los precios son los mínimos: común 0.10 Gram, poco común 0.50, raro 0.80, épico 1.00 y legendario 3.00. Son 45 piezas por clase.
+
+El catálogo cubre casco, armadura, botas, guantes, secundario de clase, arma de clase, collar, anillo y amuleto. No cambia las restricciones de clase al equipar.
+
+El servidor publica este stock inicial una sola vez, al crear o actualizar la base de mercado (`catalogVersion: 1`). Las compras usan saldo Gram y conservan nivel, rareza y marca ⚖. Las piezas vendidas no se reponen al reiniciar. El vendedor es un mercader del juego; su cuenta de sistema no permite iniciar sesión como jugador. En pruebas de otros flujos se usa `seedCatalog: false`.
+
+Si el servidor todavía no está disponible, Ofertas muestra las 135 piezas como catálogo del Mercader de Etherial con las compras desactivadas y un mensaje de conexión pendiente. No se registra una venta local ficticia ni se descuenta saldo. Al conectar, las ofertas disponibles provienen del servidor y reflejan el stock realmente restante.

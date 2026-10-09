@@ -3,9 +3,10 @@
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),{randomUUID}=require('node:crypto');
 const {Engine}=require('../js/engine');const C=require('../js/config');
 function saleFee(price){return C.currency.fee(price,C.marketFeePercent);}
-function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirname,'../.data/market.json')}={}){
+function createServer({seedCatalog=true,dataFile=process.env.MARKET_DATA_FILE||path.join(__dirname,'../.data/market.json')}={}){
  let db=fs.existsSync(dataFile)?JSON.parse(fs.readFileSync(dataFile,'utf8')):{accounts:{},listings:[]};
  function commit(next){fs.mkdirSync(path.dirname(dataFile),{recursive:true});const temp=dataFile+'.tmp';fs.writeFileSync(temp,JSON.stringify(next));fs.renameSync(temp,dataFile);db=next;}
+ if(seedCatalog&&!db.catalogVersion){const next=structuredClone(db),token='system-catalog';next.accounts[token]||={id:'etherial-merchant',revision:0,state:null,credits:0,gramUnits:0,gramSalesUnits:0};for(const listing of C.marketCatalog){if(!next.listings.some(l=>l.id===listing.id))next.listings.push({...structuredClone(listing),token,createdAt:Date.now()});}next.catalogVersion=1;commit(next);}
  function fail(message,status=400){throw Object.assign(new Error(message),{status});}
  function send(res,status,data){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));}
  const server=http.createServer(async(req,res)=>{try{
