@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.23
+# Etherial Idle: Cazadores — 0.24
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -130,3 +130,27 @@ La tienda se abre con el botón del combate. Compra 1 o 10 unidades con Blez; ca
 Dos slots de consumibles en la ficha permiten seleccionar un tamaño para vida y otro para maná. Desde la mochila se pueden equipar, desequipar o usar manualmente. El uso automático consume como máximo una unidad por recurso y turno activo, al llegar al 50% de vida o 30% de maná. Continúa con otras pilas del mismo tipo; al agotarse, conserva la selección para la próxima compra. No consume estando pausado, muerto o recuperándose.
 
 Todas las clases tienen maná (100 + 5 por nivel adicional). Cada habilidad consume 10; sin suficiente maná el héroe sigue con ataques básicos. Recuperar tras morir, cambiar de héroe o viajar recarga el maná. La selección y el maná se guardan; las partidas antiguas empiezan con el maná lleno. Los frascos de vida son rojos y los de maná azules, con tamaño visual creciente.
+
+## Mercado compartido 0.24
+
+Botón flotante ⚖ en el lateral izquierdo, debajo de la mochila. La ventana tiene Ofertas, Vender equipo, Mis ventas y Actualizar. Las tarjetas muestran ilustración, clase, nivel, rareza, estadísticas y precio. Los jugadores publican equipo desequipado con precio entero en Blez, sin comisión (máximo 20 ofertas activas). No se venden pociones.
+
+El servidor aparta la pieza al publicar, entrega el objeto al comprador y deja los ingresos disponibles para el vendedor al abrir o actualizar el mercado. Retirar una oferta devuelve la pieza. Una mochila llena bloquea la compra o retirada; un objeto solo puede venderse una vez aunque lleguen compras simultáneas. Las ofertas persisten entre reinicios, y una revisión de cuenta permite recuperar operaciones cuya respuesta se perdió. El combate se pausa mientras la ventana está abierta y vuelve a su estado previo al cerrar.
+
+### Ejecutar el juego con mercado entre jugadores
+
+Requiere Node 20 o superior, sin paquetes adicionales:
+
+```sh
+npm start
+```
+
+Abre `http://localhost:3000` en dos navegadores o perfiles separados para crear dos jugadores. Ambos comparten las ofertas del mismo servidor. La sesión se conserva en el navegador; todavía no usa identidad Telegram ni recuperación de cuentas. `PORT` configura el puerto. `MARKET_DATA_FILE` configura el archivo persistente (por defecto `.data/market.json`); conserva este archivo en un volumen persistente al alojarlo. Ejecuta una sola instancia del servidor con este almacenamiento.
+
+```sh
+npm test
+```
+
+GitHub Pages sirve la interfaz estática, pero no ejecuta este servidor. Allí el mercado muestra un mensaje de conexión pendiente; no crea ofertas falsas ni simula jugadores. Para habilitarlo por internet, aloja este mismo proyecto con Node y almacenamiento persistente, sirviendo el juego y `/api/market` desde el mismo dominio. El servidor solo expone archivos públicos permitidos.
+
+**Alcance del prototipo:** el servidor controla las transacciones, la propiedad de las ofertas y los cobros, pero aún recibe la partida y el saldo de combate del cliente. Antes de usar una economía real es necesario trasladar la validación del inventario, las ganancias y la identidad al servidor. Este mercado usa el saldo de prueba existente; no procesa TON.
