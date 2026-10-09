@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.14
+# Etherial Idle: Cazadores — 0.15
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -82,3 +82,7 @@ El héroe camina con el escenario desplazándose y los mobs se aproximan desde l
 ## Dificultad y grupos 0.14
 
 Cada región mantiene 10 stages. Bosque y cuevas tienen un mob por encuentro; cripta y ceniza tienen tres, con vida individual y ataques de todos los supervivientes. En el stage 10, las dos regiones finales presentan al jefe con dos escoltas. El héroe concentra sus ataques en un objetivo y el stage avanza cuando cae todo el grupo. El botín y la experiencia del encuentro se entregan una vez al completarlo, contando cada criatura derrotada. El nombre del enemigo ocupa una placa más compacta; los grupos muestran pequeñas barras de vida y un marcador de objetivo.
+
+## Retorno al morir 0.15
+
+Al llegar a cero vida, el héroe regresa al stage 1 de su área actual. Conserva Blez, experiencia, nivel, equipo y áreas desbloqueadas. Tras tres pulsos de recuperación, vuelve a caminar hacia el primer encuentro. El recorrido visual vuelve al inicio del área y no aparecen enemigos durante la recuperación. Guardar y recargar conserva este retorno y el estado de recuperación.
