@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.15
+# Etherial Idle: Cazadores — 0.16
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -86,3 +86,7 @@ Cada región mantiene 10 stages. Bosque y cuevas tienen un mob por encuentro; cr
 ## Retorno al morir 0.15
 
 Al llegar a cero vida, el héroe regresa al stage 1 de su área actual. Conserva Blez, experiencia, nivel, equipo y áreas desbloqueadas. Tras tres pulsos de recuperación, vuelve a caminar hacia el primer encuentro. El recorrido visual vuelve al inicio del área y no aparecen enemigos durante la recuperación. Guardar y recargar conserva este retorno y el estado de recuperación.
+
+## Seis regiones nuevas 0.16
+
+El mundo crece a diez regiones de diez stages (100 en total). Las nuevas regiones son Pantano Esmeralda (4 mobs), Picos de Escarcha (5), Desierto del Sol (6), Bastión Sombrío (7), Abismo Infernal (8) y Trono del Vacío (9). Cada una aumenta vida, daño y botín e incorpora escenario, mob y jefe propios. El stage 10 incluye un jefe y el resto de la formación como escoltas. Los grupos grandes se distribuyen en tres columnas con barras individuales. Las partidas anteriores conservan desbloqueos; haber terminado Ceniza ya no marca el final del mundo. Morir sigue devolviendo al stage 1 del área actual.
