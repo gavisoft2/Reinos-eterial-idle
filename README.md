@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.32
+# Etherial Idle: Cazadores — 0.33
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -73,7 +73,7 @@ Los ocho mobs reciben anatomía y materiales propios: slime translúcido con bro
 
 ## Combate por turnos automáticos 0.12
 
-El héroe ataca y, si el mob sobrevive, el enemigo responde en el siguiente pulso (600 ms por acción). Cada cuatro golpes se activa una habilidad de clase con daño aumentado. Las victorias restauran un 12% de la vida máxima; caer inicia tres pulsos de recuperación sin premios ni pérdida de Blez. La pausa congela los turnos y la recuperación. El medidor muestra la carga de habilidad y el registro conserva los últimos cuatro eventos. Ataques enemigos, retroceso, daño flotante y destellos de habilidades siguen los eventos reales del motor.
+El héroe ataca y, si el mob sobrevive, el enemigo responde en el siguiente pulso (600 ms por acción). Cada clase usa automáticamente su habilidad al estar lista y tener 10 maná; después espera 55 segundos reales antes de repetirla. Las victorias restauran un 12% de la vida máxima; caer inicia tres pulsos de recuperación sin premios ni pérdida de Blez. La pausa congela los turnos y la recuperación. El medidor muestra los segundos restantes de recarga y el registro conserva los últimos cuatro eventos. Ataques enemigos, retroceso, daño flotante y destellos de habilidades siguen los eventos reales del motor.
 
 ## Recorrido del mundo 0.13
 
@@ -245,3 +245,11 @@ Al equipar se suman los bonos a la ficha y al combate. Velocidad acelera solo el
 Mochila, ficha y detalles del mercado muestran los bonos y sus calidades. Los críticos aparecen en el registro de combate. La comparación de piezas incluye todas las estadísticas.
 
 Las ventas entre jugadores y retiradas conservan los atributos exactos de la pieza. Cada compra del catálogo permanente genera una instancia nueva y tiradas nuevas; la ficha del catálogo indica expresamente que sus valores son de ejemplo. Los recibos del catálogo guardan los atributos realmente entregados. Los precios de venta y comisiones no cambian.
+
+
+### Habilidades de clase 0.33
+- Guerrero: Corte del Guardián, tajo cuerpo a cuerpo, daño ×1.8, arco luminoso y onda de impacto dorada.
+- Arquero: Flecha perforante, disparo a distancia, daño ×2, flecha con estela verde e impacto.
+- Mago: Estallido arcano, hechizo a distancia, daño ×2.2, círculo de runas, proyectil y explosión violeta.
+- Una habilidad por clase, lista en la primera pelea; activación automática en su turno con al menos 10 maná. Recarga de 55 segundos desde el uso, independiente por clase y guardada en la partida. Viajar, morir, cambiar de héroe y recargar la página conservan el plazo. El tiempo real transcurre también en pausa, pero no permite atacar mientras está pausado.
+- Efectos de ataques básicos y habilidades conservan su objetivo y completan su animación incluso cuando el golpe mata al mob o comienza la caminata. Se respeta la preferencia de movimiento reducido.

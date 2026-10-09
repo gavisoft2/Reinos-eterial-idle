@@ -53,3 +53,5 @@ dialog{max-height:85dvh;overflow-y:auto}.bestiary-grid{display:grid;grid-templat
 .item-sell{width:100%;margin-top:10px;border-color:#b59364}.item-sell:disabled{opacity:.45}
 
 .affix-list{clear:both;background:#131d29;border:1px solid #465163;padding:10px;margin:12px 0;border-radius:4px}.affix-list small{font-size:9px;letter-spacing:.7px;color:#ceb785}.affix-list p{font-size:11px;margin:7px 0;line-height:1.5;color:#c7d9c5}.item-stats{line-height:1.8}.sheet-bottom{line-height:1.7}
+
+#skill-icon{font-size:21px;line-height:1}#skill-name{flex:1;align-self:center}.skill-meter #skill-charge{align-self:center;white-space:nowrap}.skill-meter .bar i{transition:width .25s linear}
