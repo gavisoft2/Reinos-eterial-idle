@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.9
+# Etherial Idle: Cazadores — 0.10
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -63,3 +63,6 @@ Antorchas, cristales y lava con iluminación ambiental; viñeta de profundidad; 
 
 ## Materiales y sprites 0.9
 Detalles de remaches, cota de malla, costuras, bordados, grietas, corteza y escamas. Luz direccional dibujada en armaduras y rostros. Las mejoras de arma ya existentes reciben acabados visuales: base, dorado a partir de +3 y rúnico a partir de +6. Se conserva el poder y precio de las mejoras. El acabado aparece también en los retratos y en la ficha de equipo.
+
+## Rostros y ojos 0.10
+Ojos visibles en ambos lados del rostro de los héroes, iris por clase, pupilas, reflejos, cejas y párpados. El guerrero, la arquera y el mago tienen expresiones y detalles faciales propios. Parpadeo breve en reposo, desactivado cuando el usuario prefiere movimiento reducido. Los mobs reciben ojos y bocas según su especie: pupilas de reptil, ojos luminosos en no muertos, cuencas y colmillos.
