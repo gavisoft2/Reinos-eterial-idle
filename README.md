@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.24
+# Etherial Idle: Cazadores — 0.25
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -133,7 +133,7 @@ Todas las clases tienen maná (100 + 5 por nivel adicional). Cada habilidad cons
 
 ## Mercado compartido 0.24
 
-Botón flotante ⚖ en el lateral izquierdo, debajo de la mochila. La ventana tiene Ofertas, Vender equipo, Mis ventas y Actualizar. Las tarjetas muestran ilustración, clase, nivel, rareza, estadísticas y precio. Los jugadores publican equipo desequipado con precio entero en Blez, sin comisión (máximo 20 ofertas activas). No se venden pociones.
+Botón flotante ⚖ en el lateral izquierdo, debajo de la mochila. La ventana tiene Ofertas, Vender equipo, Mis ventas y Actualizar. Las tarjetas muestran ilustración, clase, nivel, rareza, estadísticas y precio. Los jugadores publican equipo desequipado con precio entero en Blez, con una comisión única del 5% al completar la venta (máximo 20 ofertas activas). No se venden pociones.
 
 El servidor aparta la pieza al publicar, entrega el objeto al comprador y deja los ingresos disponibles para el vendedor al abrir o actualizar el mercado. Retirar una oferta devuelve la pieza. Una mochila llena bloquea la compra o retirada; un objeto solo puede venderse una vez aunque lleguen compras simultáneas. Las ofertas persisten entre reinicios, y una revisión de cuenta permite recuperar operaciones cuya respuesta se perdió. El combate se pausa mientras la ventana está abierta y vuelve a su estado previo al cerrar.
 
@@ -154,3 +154,9 @@ npm test
 GitHub Pages sirve la interfaz estática, pero no ejecuta este servidor. Allí el mercado muestra un mensaje de conexión pendiente; no crea ofertas falsas ni simula jugadores. Para habilitarlo por internet, aloja este mismo proyecto con Node y almacenamiento persistente, sirviendo el juego y `/api/market` desde el mismo dominio. El servidor solo expone archivos públicos permitidos.
 
 **Alcance del prototipo:** el servidor controla las transacciones, la propiedad de las ofertas y los cobros, pero aún recibe la partida y el saldo de combate del cliente. Antes de usar una economía real es necesario trasladar la validación del inventario, las ganancias y la identidad al servidor. Este mercado usa el saldo de prueba existente; no procesa TON.
+
+## Comisión del mercado 0.25
+
+Una sola comisión del 5% cubre publicar y vender. Se descuenta del precio de venta únicamente cuando alguien compra; publicar o retirar una oferta no cobra un segundo importe. El comprador paga el precio anunciado. El vendedor recibe el neto al actualizar el mercado. La interfaz muestra comisión y neto antes de publicar y en Mis ventas. El servidor registra las comisiones acumuladas en `feesCollected`; no las envía a una billetera TON.
+
+Los Blez se contabilizan en enteros: la comisión se redondea hacia arriba. Ejemplo: 1,000 Blez → 50 de comisión y 950 para el vendedor; 250 Blez → 13 de comisión y 237 para el vendedor. La compra y la comisión se guardan juntas para que las compras simultáneas y los reintentos no cobren dos veces.

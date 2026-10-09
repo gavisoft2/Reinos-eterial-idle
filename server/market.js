@@ -2,6 +2,7 @@
 // Shared prototype economy. Game snapshots remain client supplied until server combat is added.
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),{randomUUID}=require('node:crypto');
 const {Engine}=require('../js/engine');const C=require('../js/config');
+function saleFee(price){return Math.ceil(price*C.marketFeePercent/100);}
 function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirname,'../.data/market.json')}={}){
  let db=fs.existsSync(dataFile)?JSON.parse(fs.readFileSync(dataFile,'utf8')):{accounts:{},listings:[]};
  function commit(next){fs.mkdirSync(path.dirname(dataFile),{recursive:true});const temp=dataFile+'.tmp';fs.writeFileSync(temp,JSON.stringify(next));fs.renameSync(temp,dataFile);db=next;}
@@ -23,12 +24,12 @@ function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirnam
  if(next.listings.filter(l=>l.token===token&&l.status==='active').length>=20)fail('Máximo 20 ofertas activas.');
  const index=input.index,item=e.itemAt(index);if(!Number.isInteger(index)||!item||item.kind==='potion')fail('Selecciona un equipamiento.');if(Object.values(e.s.equipment).includes(index))fail('Desequipa el objeto antes de venderlo.');
  if(!Number.isSafeInteger(input.price)||input.price<1||input.price>1000000000)fail('El precio debe ser de 1 a 1,000,000,000 Blez.');
- const listing={id:randomUUID(),token,seller:account.id.slice(0,8),item:{...e.s.bag[index]},price:input.price,status:'active',createdAt:Date.now()};next.listings.push(listing);e.s.bag[index]=null;
+ const listing={id:randomUUID(),token,seller:account.id.slice(0,8),item:{...e.s.bag[index]},price:input.price,fee:saleFee(input.price),net:input.price-saleFee(input.price),status:'active',createdAt:Date.now()};next.listings.push(listing);e.s.bag[index]=null;
  }else if(action==='buy'||action==='cancel'){
  const listing=next.listings.find(l=>l.id===input.id&&l.status==='active');if(!listing)fail('Esta oferta ya no está disponible.',409);
  if(action==='buy'){
  if(listing.token===token)fail('No puedes comprar tu propia oferta.');if(e.s.coins<listing.price)fail('No tienes suficientes Blez.');if(!e.s.bag.some(slot=>!slot))fail('Necesitas un espacio libre en la mochila.');
- e.s.coins-=listing.price;next.accounts[listing.token].credits+=listing.price;listing.status='sold';listing.buyer=account.id;
+ e.s.coins-=listing.price;const fee=saleFee(listing.price);listing.fee=fee;listing.net=listing.price-fee;next.accounts[listing.token].credits+=listing.net;next.feesCollected=(next.feesCollected||0)+fee;listing.status='sold';listing.buyer=account.id;
  }else{if(listing.token!==token)fail('Esta oferta pertenece a otro jugador.',403);if(!e.s.bag.some(slot=>!slot))fail('Libera un espacio para recuperar tu objeto.');listing.status='cancelled';}
  const index=e.s.bag.findIndex(slot=>!slot);e.s.bag[index]={...listing.item};
  }else if(action!=='sync')fail('Operación desconocida.');
@@ -40,4 +41,4 @@ function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirnam
  }catch(error){send(res,error.status||400,{error:error.status?error.message:'No se pudo procesar la solicitud.'});}});return server;
 }
 if(require.main===module){const port=Number(process.env.PORT)||3000;createServer().listen(port,'0.0.0.0',()=>console.log('Etherial con mercado compartido en puerto '+port));}
-module.exports={createServer};
+module.exports={createServer,saleFee};
