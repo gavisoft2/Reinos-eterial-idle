@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.7
+# Etherial Idle: Cazadores — 0.8
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -57,3 +57,6 @@ Guerrero con rostro visible, armadura articulada, capa carmesí, escudo heráldi
 Rediseño de las ocho criaturas: slime gelatinoso, árbol ancestral, murciélago, gólem de cristal, esqueleto armado, rey nigromante, bestia de lava y dragón de ceniza. Animación de alas en el murciélago y dragón, partículas de impacto y monedas visuales al vencer enemigos. Se actualizaron los nombres de la cripta para corresponder con sus nuevas criaturas; los valores de combate se mantienen.
 
 El campamento incorpora un bestiario visual con monstruos y jefes, vida base de primera oleada/jefe y recompensa de cada encuentro.
+
+## Presentación RPG 0.8
+Antorchas, cristales y lava con iluminación ambiental; viñeta de profundidad; sombras suaves bajo personajes; reacción al impacto y aparición del siguiente enemigo. Interfaz muestra el nombre del ataque de cada clase y la vida numérica de la criatura. Los iconos del equipo se dibujan en pixel art. El terreno se almacena en caché y solo las capas animadas se redibujan, reduciendo trabajo por cuadro en móvil. Se respeta la preferencia de movimiento reducido.
