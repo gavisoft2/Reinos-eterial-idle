@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.13
+# Etherial Idle: Cazadores — 0.14
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -78,3 +78,7 @@ El héroe ataca y, si el mob sobrevive, el enemigo responde en el siguiente puls
 ## Recorrido del mundo 0.13
 
 El héroe camina con el escenario desplazándose y los mobs se aproximan desde la derecha antes del combate. Hay cuatro pulsos de recorrido entre encuentros (dos de marcha y dos de aproximación), sin daño ni botín. Tras ganar, sigue caminando; cada jefe conduce automáticamente a la siguiente región. El stage 40 termina con el dragón de ceniza y detiene la expedición. Iniciar otro recorrido conserva el equipo, las monedas y los niveles. La pausa congela el recorrido. Al regresar de un guardado, se reanuda el encuentro desde la marcha; las heridas se conservan y un recorrido completado permanece terminado. El progreso offline sigue siendo una estimación de monedas, sin simular stages.
+
+## Dificultad y grupos 0.14
+
+Cada región mantiene 10 stages. Bosque y cuevas tienen un mob por encuentro; cripta y ceniza tienen tres, con vida individual y ataques de todos los supervivientes. En el stage 10, las dos regiones finales presentan al jefe con dos escoltas. El héroe concentra sus ataques en un objetivo y el stage avanza cuando cae todo el grupo. El botín y la experiencia del encuentro se entregan una vez al completarlo, contando cada criatura derrotada. El nombre del enemigo ocupa una placa más compacta; los grupos muestran pequeñas barras de vida y un marcador de objetivo.
