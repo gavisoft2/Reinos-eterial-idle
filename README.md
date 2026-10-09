@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.11
+# Etherial Idle: Cazadores — 0.12
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -70,3 +70,7 @@ Ojos visibles en ambos lados del rostro de los héroes, iris por clase, pupilas,
 ## Criaturas y equipo 0.11
 
 Los ocho mobs reciben anatomía y materiales propios: slime translúcido con brotes, guardián con dedos de raíces y corazón de madera, murciélago con nervaduras y garras, gólem con cuarzo facetado, soldado esqueleto con coraza y escudo, nigromante con hombreras de hueso y cadenas, bestia volcánica con placas de obsidiana y dragón con espinas y escamas. Las membranas siguen las dos poses de vuelo existentes. Los detalles se guardan en la caché de sprites y se reutilizan en combate y bestiario.
+
+## Combate por turnos automáticos 0.12
+
+El héroe ataca y, si el mob sobrevive, el enemigo responde en el siguiente pulso (600 ms por acción). Cada cuatro golpes se activa una habilidad de clase con daño aumentado. Las victorias restauran un 12% de la vida máxima; caer inicia tres pulsos de recuperación sin premios ni pérdida de Blez. La pausa congela los turnos y la recuperación. El medidor muestra la carga de habilidad y el registro conserva los últimos cuatro eventos. Ataques enemigos, retroceso, daño flotante y destellos de habilidades siguen los eventos reales del motor.
