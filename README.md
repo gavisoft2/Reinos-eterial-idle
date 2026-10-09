@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.16
+# Etherial Idle: Cazadores — 0.17
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -90,3 +90,9 @@ Al llegar a cero vida, el héroe regresa al stage 1 de su área actual. Conserva
 ## Seis regiones nuevas 0.16
 
 El mundo crece a diez regiones de diez stages (100 en total). Las nuevas regiones son Pantano Esmeralda (4 mobs), Picos de Escarcha (5), Desierto del Sol (6), Bastión Sombrío (7), Abismo Infernal (8) y Trono del Vacío (9). Cada una aumenta vida, daño y botín e incorpora escenario, mob y jefe propios. El stage 10 incluye un jefe y el resto de la formación como escoltas. Los grupos grandes se distribuyen en tres columnas con barras individuales. Las partidas anteriores conservan desbloqueos; haber terminado Ceniza ya no marca el final del mundo. Morir sigue devolviendo al stage 1 del área actual.
+
+## Mochila y equipo 0.17
+
+Botón flotante con mochila pixelada en el lateral izquierdo. Abre un inventario de 20 espacios con objetos visibles y cantidades. Cada ampliación agrega dos espacios: 200, 400, 600 Blez y así sucesivamente. Las pociones se apilan hasta 100 por espacio; el sobrante pasa a otro espacio y la inserción devuelve lo que no cabe. Cada objeto abre sus estadísticas, comparación y acción de equipar o usar; hay botones para volver y cerrar. Arma, armadura, botas y amuleto aportan estadísticas reales, respetan las clases y permanecen en su espacio marcados como equipados. Se incluye un kit inicial de prueba con armas de las tres clases, vestimentas, botas, amuleto y cinco pociones. El inventario, las ampliaciones y el equipo se guardan junto con la partida; las partidas anteriores reciben el kit una sola vez al migrar. Defensa reduce el daño por mob con mínimo uno, y equipar vida adicional no cura instantáneamente. Las pociones recuperan 40 de vida y no pueden usarse a vida completa ni durante la recuperación tras morir.
+
+Cada encuentro vencido entrega una poción de vida si queda espacio. Si la mochila está llena, el botín Blez se entrega igualmente y la escena indica que la poción no pudo guardarse.
