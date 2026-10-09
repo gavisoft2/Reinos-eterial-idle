@@ -10,7 +10,7 @@ function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirnam
  function send(res,status,data){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));}
  const server=http.createServer(async(req,res)=>{try{
  const url=new URL(req.url,'http://localhost');
- if(url.pathname==='/api/market'&&req.method==='GET'){send(res,200,{listings:db.listings.filter(l=>l.status==='active').map(({token,...listing})=>({...listing,mine:req.headers.authorization==='Bearer '+token}))});return;}
+ if(url.pathname==='/api/market'&&req.method==='GET'){const auth=req.headers.authorization;send(res,200,{listings:db.listings.filter(l=>l.status==='active').map(({token,...listing})=>({...listing,mine:auth==='Bearer '+token})),sales:db.listings.filter(l=>l.status==='sold'&&auth==='Bearer '+l.token).sort((a,b)=>(b.soldAt||0)-(a.soldAt||0)).map(({token,...listing})=>listing)});return;}
  if(url.pathname==='/api/market'&&req.method==='POST'){
  const origin=req.headers.origin;if(origin&&new URL(origin).host!==req.headers.host)fail('Origen no permitido.',403);
  const token=(req.headers.authorization||'').replace(/^Bearer /,'');if(!/^[a-f0-9-]{36}$/.test(token))fail('Sesión inválida.',401);
@@ -29,7 +29,7 @@ function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirnam
  const listing=next.listings.find(l=>l.id===input.id&&l.status==='active');if(!listing)fail('Esta oferta ya no está disponible.',409);
  if(action==='buy'){
  if(listing.token===token)fail('No puedes comprar tu propia oferta.');if(listing.currency!=='Gram')fail('Esta oferta antigua debe retirarse y publicarse de nuevo en Gram.');if(account.gramUnits<listing.priceUnits)fail('No tienes suficientes Gram.');if(!e.s.bag.some(slot=>!slot))fail('Necesitas un espacio libre en la mochila.');
- account.gramUnits-=listing.priceUnits;const fee=saleFee(listing.priceUnits);listing.feeUnits=fee;listing.netUnits=listing.priceUnits-fee;const seller=next.accounts[listing.token];seller.gramUnits=(seller.gramUnits||0)+listing.netUnits;seller.gramSalesUnits=(seller.gramSalesUnits||0)+listing.netUnits;next.gramFeesCollectedUnits=(next.gramFeesCollectedUnits||0)+fee;listing.status='sold';listing.buyer=account.id;
+ account.gramUnits-=listing.priceUnits;const fee=saleFee(listing.priceUnits);listing.feeUnits=fee;listing.netUnits=listing.priceUnits-fee;const seller=next.accounts[listing.token];seller.gramUnits=(seller.gramUnits||0)+listing.netUnits;seller.gramSalesUnits=(seller.gramSalesUnits||0)+listing.netUnits;next.gramFeesCollectedUnits=(next.gramFeesCollectedUnits||0)+fee;listing.status='sold';listing.soldAt=Date.now();listing.buyer=account.id;
  }else{if(listing.token!==token)fail('Esta oferta pertenece a otro jugador.',403);if(!e.s.bag.some(slot=>!slot))fail('Libera un espacio para recuperar tu objeto.');listing.status='cancelled';}
  const index=e.s.bag.findIndex(slot=>!slot);e.s.bag[index]={...listing.item,marketable:true};
  }else if(action!=='sync')fail('Operación desconocida.');

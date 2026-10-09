@@ -1,1 +1,1 @@
-{"name":"etherial-idle","version":"0.27.0","private":true,"scripts":{"start":"node server/market.js","test":"node --test tests/*.test.js"},"engines":{"node":">=20"}}
+{"name":"etherial-idle","version":"0.28.0","private":true,"scripts":{"start":"node server/market.js","test":"node --test tests/*.test.js"},"engines":{"node":">=20"}}

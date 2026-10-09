@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.27
+# Etherial Idle: Cazadores — 0.28
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -180,3 +180,11 @@ El mínimo se comprueba en la interfaz y en el servidor. El equipo comerciable m
 Se mantienen los drops de equipo del 15% por mob y 70% por jefe. Cuando cae equipo, hay un segundo sorteo del 20% para que sea comerciable en mobs y del 30% en jefes. La probabilidad total es **3% por mob** y **21% por jefe**; la distribución de rarezas y los niveles de las áreas no cambian. El bestiario muestra estos porcentajes.
 
 La marca de comerciable se guarda con la pieza y se conserva al comprar o retirar una oferta. El equipo inicial, las pociones y las piezas antiguas sin esa marca quedan ligados. Las piezas apartadas en ofertas previas conservan el derecho a recuperarse y comerciarse.
+
+### Ofertas e historial de ventas 0.28
+
+Ofertas muestra todos los artículos activos, incluidos los del jugador. En sus propias ofertas se permite retirar la pieza en lugar de comprarla. Ofertas y Mis ventas permanecen navegables incluso cuando el servidor no está disponible; durante una solicitud se bloquean brevemente para evitar acciones duplicadas.
+
+Mis ventas muestra primero el historial de ventas completadas del vendedor, ordenado por la venta más reciente. Cada registro incluye equipo, rareza, nivel, precio, comisión, saldo neto recibido y día de la semana, fecha y hora (con segundos) en la zona America/Santo_Domingo. Debajo aparecen sus ofertas todavía activas.
+
+El servidor registra `soldAt` al completar la compra y lo guarda junto con la transacción. Solo entrega el historial al propietario de las ofertas. No incluye ofertas retiradas como ventas ni cambia la hora en los reintentos. Las ventas anteriores que no tenían fecha se muestran como Fecha no registrada, sin inventar una fecha. El historial compartido sigue requiriendo alojar el servidor Node.
