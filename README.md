@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.6
+# Etherial Idle: Cazadores — 0.7
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -52,3 +52,8 @@ Escenarios rediseñados con vista elevada: bosque con casa, río y puente; cueva
 
 ## Héroes 0.6
 Guerrero con rostro visible, armadura articulada, capa carmesí, escudo heráldico y espada biselada. Arquera con trenza, carcaj, armadura de cuero y arco largo. Mago con bordados, libro de hechizos, sombrero y bastón de cristal. Las poses de reposo y ataque tienen dos cuadros cada una por clase. Los mismos sprites se muestran en combate, tienda, selección y ficha. No cambia el poder de combate ni el precio de los héroes.
+
+## Enemigos y combate 0.7
+Rediseño de las ocho criaturas: slime gelatinoso, árbol ancestral, murciélago, gólem de cristal, esqueleto armado, rey nigromante, bestia de lava y dragón de ceniza. Animación de alas en el murciélago y dragón, partículas de impacto y monedas visuales al vencer enemigos. Se actualizaron los nombres de la cripta para corresponder con sus nuevas criaturas; los valores de combate se mantienen.
+
+El campamento incorpora un bestiario visual con monstruos y jefes, vida base de primera oleada/jefe y recompensa de cada encuentro.
