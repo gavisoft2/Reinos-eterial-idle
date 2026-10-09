@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.12
+# Etherial Idle: Cazadores — 0.13
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -74,3 +74,7 @@ Los ocho mobs reciben anatomía y materiales propios: slime translúcido con bro
 ## Combate por turnos automáticos 0.12
 
 El héroe ataca y, si el mob sobrevive, el enemigo responde en el siguiente pulso (600 ms por acción). Cada cuatro golpes se activa una habilidad de clase con daño aumentado. Las victorias restauran un 12% de la vida máxima; caer inicia tres pulsos de recuperación sin premios ni pérdida de Blez. La pausa congela los turnos y la recuperación. El medidor muestra la carga de habilidad y el registro conserva los últimos cuatro eventos. Ataques enemigos, retroceso, daño flotante y destellos de habilidades siguen los eventos reales del motor.
+
+## Recorrido del mundo 0.13
+
+El héroe camina con el escenario desplazándose y los mobs se aproximan desde la derecha antes del combate. Hay cuatro pulsos de recorrido entre encuentros (dos de marcha y dos de aproximación), sin daño ni botín. Tras ganar, sigue caminando; cada jefe conduce automáticamente a la siguiente región. El stage 40 termina con el dragón de ceniza y detiene la expedición. Iniciar otro recorrido conserva el equipo, las monedas y los niveles. La pausa congela el recorrido. Al regresar de un guardado, se reanuda el encuentro desde la marcha; las heridas se conservan y un recorrido completado permanece terminado. El progreso offline sigue siendo una estimación de monedas, sin simular stages.
