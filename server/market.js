@@ -40,7 +40,7 @@ function createServer({ownerToken=process.env.MARKET_OWNER_SESSION||null,seedCat
  e.s.gramUnits=account.gramUnits;e.s.gramSalesUnits=account.gramSalesUnits;account.revision++;account.state=e.save();account.state.marketRevision=account.revision;commit(next);send(res,200,{state:account.state,revision:account.revision,player:account.id.slice(0,8)});return;
  }
  if(req.method!=='GET')fail('Ruta no disponible.',404);
- const files={'/':'index.html','/index.html':'index.html','/style.css':'style.css','/js/config.js':'js/config.js','/js/equipment.js':'js/equipment.js','/js/engine.js':'js/engine.js','/js/scene.js':'js/scene.js','/js/app.js':'js/app.js','/js/market.js':'js/market.js'};
+ const files={'/':'index.html','/index.html':'index.html','/style.css':'style.css','/js/mobile.js':'js/mobile.js','/js/config.js':'js/config.js','/js/equipment.js':'js/equipment.js','/js/engine.js':'js/engine.js','/js/scene.js':'js/scene.js','/js/app.js':'js/app.js','/js/market.js':'js/market.js'};
  const file=files[url.pathname];if(!file)fail('Ruta no disponible.',404);res.writeHead(200,{'Content-Type':file.endsWith('.css')?'text/css':file.endsWith('.js')?'application/javascript':'text/html; charset=utf-8'});res.end(fs.readFileSync(path.join(__dirname,'..',file)));
  }catch(error){send(res,error.status||400,{error:error.status?error.message:'No se pudo procesar la solicitud.'});}});return server;
 }

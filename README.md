@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.34
+# Etherial Idle: Cazadores — 0.35
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -265,3 +265,11 @@ Nivel máximo del personaje: **50**. Al alcanzar el límite se detiene la acumul
 | Mago | Estallido arcano ×2.2 | Lanza de hielo ×2.9 | Meteorito ×3.8 |
 
 Cada habilidad cuesta 10 maná y tiene 55 segundos de recarga propia. El motor usa una habilidad disponible por turno de héroe, en orden de desbloqueo; sigue con ataques básicos si ninguna está disponible. Las recargas se guardan por clase y habilidad. La recarga antigua de cada clase migra a su primera habilidad. El panel muestra las tres piezas, sus requisitos, multiplicador y segundos restantes; sus efectos distinguen tajo doble, impacto, flechas gemelas/astrales, hielo y meteorito.
+
+
+### Pantalla móvil y Telegram 0.35
+- En móvil, el juego usa el ancho y alto completos del viewport, sin marco externo ni márgenes de escritorio. Cabecera, recursos y menú inferior permanecen disponibles mientras la vista activa se desplaza.
+- Botón ⛶ en la cabecera para entrar/salir de pantalla completa en navegadores compatibles. En Chrome, la barra del navegador solo se oculta cuando el usuario activa este modo.
+- SDK oficial de Telegram cargado de forma asíncrona: `ready`, `expand`, solicitud `requestFullscreen` en clientes 8.0+, colores y cambios de viewport/áreas seguras. Los clientes anteriores usan la expansión disponible. La carga del SDK no bloquea el juego si falla.
+- Se respetan las áreas seguras del dispositivo y de Telegram; el viewport se actualiza al girar o abrir el teclado. Diálogos con desplazamiento y límites de altura, inputs de 16 px y controles de al menos 42–44 px.
+- Esta integración prepara la presentación de la Mini App; aún hay que configurar el enlace del juego en el bot de Telegram. No conecta pagos, sesiones verificadas ni retiros.
