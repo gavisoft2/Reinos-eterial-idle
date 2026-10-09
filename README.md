@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.18
+# Etherial Idle: Cazadores — 0.19
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -100,3 +100,7 @@ Cada encuentro vencido entrega una poción de vida si queda espacio. Si la mochi
 ## Ficha completa de equipamiento 0.18
 
 Nueve espacios visibles: casco, armadura, botas, guantes, secundario de clase, arma, collar, anillo y amuleto. El secundario es escudo para guerrero, libro para mago y carcaj para arquera; las armas siguen las mismas restricciones de clase. Tocar un espacio vacío abre la mochila filtrada; tocar uno equipado abre la pieza con opción de desequipar. Los objetos permanecen en la mochila y solo una pieza aporta bonos por espacio. Nivel y rareza aumentan ataque, vida y defensa: factor de nivel 1 + 0.15 × (nivel − 1), multiplicado por rareza (Común 1, Poco común 1.25, Raro 1.6, Épico 2.1, Legendario 2.8), redondeado hacia abajo. Los jefes entregan una pieza compatible, con nivel y rareza según el área si cabe en la mochila. Se conservan metadatos y equipo al guardar. Al migrar una mochila antigua, se añaden las siete piezas nuevas en los espacios disponibles una sola vez.
+
+## Equipo exclusivo por clase 0.19
+
+Todas las piezas de los nueve slots tienen clase, incluidos casco, botas, guantes, collar, anillo y amuleto. Solo las pociones son compartidas. El motor y la interfaz rechazan equipo de otra clase; cambiar de héroe retira piezas incompatibles. Hay un conjunto completo para cada clase con capucha y cuero para arquera, diadema y piezas rúnicas para mago, y acero y remaches para guerrero. La primera elección de héroe adapta el kit inicial de accesorios a esa clase. Los antiguos accesorios compartidos se convierten a la clase activa una sola vez al cargar, conservando nivel y rareza. Los jefes entregan únicamente equipo de la clase activa.
