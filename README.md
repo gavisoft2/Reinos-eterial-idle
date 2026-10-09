@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.21
+# Etherial Idle: Cazadores — 0.22
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -112,3 +112,7 @@ Los iconos se redibujan a doble resolución con siluetas propias: espada diagona
 ## Probabilidades de equipo 0.21
 
 Cada mob derrotado tiene 15% de probabilidad de equipo; cada jefe 70%. Tras esa tirada, una segunda elige rareza y una tercera el tipo de pieza compatible con la clase. Niveles por pares de áreas: 1–2 nivel 1, 3–4 nivel 5, 5–6 nivel 10, 7–8 nivel 20, 9–10 nivel 30. Distribución de rarezas cuando cae equipo (común/poco común/raro/épico/legendario): 75/20/5/0/0, 60/28/10/2/0, 45/32/18/5/0, 32/33/25/9/1, 22/33/30/13/2. No hay legendarios en las primeras seis áreas. El equipo se entrega al derrotar cada criatura del grupo y se conserva aunque después el héroe caiga; los Blez del encuentro siguen concediéndose al vencer al grupo completo. Si no cabe, se muestra el drop perdido. Las tasas se consultan en el bestiario y los objetos conservan nivel y rareza al guardar.
+
+## Colores de rareza 0.22
+
+Común: gris; Poco común: verde; Raro: azul; Épico: morado; Legendario: naranja. Los bordes de la mochila y la ficha, los nombres y la vista de detalles usan estos colores, incluso al equipar un objeto. El nombre de la rareza sigue visible para identificarla sin depender solo del color.
