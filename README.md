@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.5
+# Etherial Idle: Cazadores — 0.6
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -42,10 +42,13 @@ Para una demostración en GitHub Pages, subir el contenido de esta carpeta y act
 - Billetera permite añadir 5,000 Blez de prueba y calcular conversiones sin enviar una solicitud ni transferir fondos.
 - Pendiente: cómo se compran Blez, mínimo y comisiones de retiro, reserva TON, límites, financiación y balance de emisión. No establecer ganancias diarias o prometer rentabilidad con estos parámetros de prueba.
 
-## Dirección artística RPG (0.5)
+## Dirección artística RPG (0.6)
 Interfaz de piedra oscura y latón, títulos serif y botones de pergamino. Héroes originales con armadura/capa, arco/capucha y bastón/túnica. Retratos pixelados en tienda y selección. Bosque con castillo, cuevas con cristales, cripta con ruinas y volcán con lava. Cada zona tiene monstruos y jefes con siluetas propias. Todo el arte se genera desde código Canvas, sin assets ajenos ni imágenes externas.
 
-Pulido visual 0.5: contornos de personajes y enemigos, sprites almacenados en caché, detalles de piedra, estandartes, cofres, indicador de diez oleadas y barra de vida del héroe.
+Pulido visual 0.6: contornos de personajes y enemigos, sprites almacenados en caché, detalles de piedra, estandartes, cofres, indicador de diez oleadas y barra de vida del héroe.
 
-## Escenarios y ficha RPG 0.5
+## Escenarios y ficha RPG 0.6
 Escenarios rediseñados con vista elevada: bosque con casa, río y puente; cueva con suelo de roca y agua; cripta con pavimento, alfombra y antorchas; volcán con canales de lava. El mapa usa miniaturas reales de cada escenario. Campamento incluye una ficha visual del héroe, arma/mejora actual, vestimenta de clase y estadísticas derivadas del combate. Los elementos de equipo muestran los valores ya existentes; no añaden bonificaciones ocultas ni cambian los precios Blez.
+
+## Héroes 0.6
+Guerrero con rostro visible, armadura articulada, capa carmesí, escudo heráldico y espada biselada. Arquera con trenza, carcaj, armadura de cuero y arco largo. Mago con bordados, libro de hechizos, sombrero y bastón de cristal. Las poses de reposo y ataque tienen dos cuadros cada una por clase. Los mismos sprites se muestran en combate, tienda, selección y ficha. No cambia el poder de combate ni el precio de los héroes.
