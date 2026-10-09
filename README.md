@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.26
+# Etherial Idle: Cazadores — 0.27
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -131,11 +131,11 @@ Dos slots de consumibles en la ficha permiten seleccionar un tamaño para vida y
 
 Todas las clases tienen maná (100 + 5 por nivel adicional). Cada habilidad consume 10; sin suficiente maná el héroe sigue con ataques básicos. Recuperar tras morir, cambiar de héroe o viajar recarga el maná. La selección y el maná se guardan; las partidas antiguas empiezan con el maná lleno. Los frascos de vida son rojos y los de maná azules, con tamaño visual creciente.
 
-## Mercado Gram y retiros 0.26
+## Mercado Gram y retiros 0.27
 
 El botón flotante ⚖ del lateral izquierdo abre una cuadrícula de slots. Cada oferta muestra el ítem, rareza, nivel y precio en Gram. Toca un slot para ver sus estadísticas, vendedor y botón de compra. Los espacios vacíos se distinguen claramente; en GitHub Pages se muestra la cuadrícula vacía y el estado de conexión, sin simular ofertas de otros jugadores.
 
-En Vender equipo, el jugador fija el precio en Gram con hasta dos decimales (0.01–1,000,000). Publicar aparta la pieza; retirar devuelve el equipo. Solo se vende equipamiento desequipado, máximo 20 ofertas activas por vendedor. La compra entrega la misma pieza con nivel y rareza; se rechaza sin saldo Gram o espacio en la mochila. Las compras simultáneas no duplican un objeto.
+Vender equipo abre directamente la mochila filtrada por equipo comerciable. Al seleccionar una pieza se abre su ficha con ilustración, estadísticas, precio y botón Poner a la venta. El precio usa hasta dos decimales y respeta el mínimo de su rareza (máximo 1,000,000 Gram). Publicar aparta la pieza; retirar devuelve el equipo. Solo se vende equipamiento comerciable y desequipado. Los slots crecen con las ofertas; no se mantiene el antiguo límite de 20 publicaciones. La compra entrega la misma pieza con nivel y rareza; se rechaza sin saldo Gram o espacio en la mochila. Las compras simultáneas no duplican un objeto.
 
 ### Comisiones y moneda Gram
 
@@ -164,3 +164,19 @@ npm test
 La cuadrícula y las cotizaciones funcionan en la interfaz estática, pero GitHub Pages no ejecuta el servidor. Para el mercado compartido por internet, aloja este proyecto con Node y almacenamiento persistente, sirviendo el juego y `/api/market` desde el mismo dominio.
 
 El servidor controla ofertas, saldo Gram, comisiones y transacciones; los inventarios y ganancias Blez de combate todavía vienen del cliente. Antes de una economía real falta validar combate e inventario en el servidor, identidad y depósitos. No se procesan pagos TON.
+
+### Equipo comerciable y mínimos 0.27
+
+| Rareza | Precio mínimo (Gram) |
+|---|---:|
+| Común | 0.10 |
+| Poco común | 0.50 |
+| Raro | 0.80 |
+| Épico | 1.00 |
+| Legendario | 3.00 |
+
+El mínimo se comprueba en la interfaz y en el servidor. El equipo comerciable muestra ⚖ en la esquina superior derecha de la mochila y de la ventana de estadísticas. El resto queda ligado y no puede publicarse; los objetos equipados deben desequiparse antes de venderse.
+
+Se mantienen los drops de equipo del 15% por mob y 70% por jefe. Cuando cae equipo, hay un segundo sorteo del 20% para que sea comerciable en mobs y del 30% en jefes. La probabilidad total es **3% por mob** y **21% por jefe**; la distribución de rarezas y los niveles de las áreas no cambian. El bestiario muestra estos porcentajes.
+
+La marca de comerciable se guarda con la pieza y se conserva al comprar o retirar una oferta. El equipo inicial, las pociones y las piezas antiguas sin esa marca quedan ligados. Las piezas apartadas en ofertas previas conservan el derecho a recuperarse y comerciarse.

@@ -22,9 +22,8 @@ function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirnam
  account.gramUnits=Number.isSafeInteger(account.gramUnits)?account.gramUnits:0;account.gramSalesUnits=Number.isSafeInteger(account.gramSalesUnits)?account.gramSalesUnits:0;
  const action=input.action;
  if(action==='publish'){
- if(next.listings.filter(l=>l.token===token&&l.status==='active').length>=20)fail('Máximo 20 ofertas activas.');
- const index=input.index,item=e.itemAt(index);if(!Number.isInteger(index)||!item||item.kind==='potion')fail('Selecciona un equipamiento.');if(Object.values(e.s.equipment).includes(index))fail('Desequipa el objeto antes de venderlo.');
- const priceUnits=C.currency.toUnits(input.price);if(!priceUnits)fail('El precio debe estar entre 0.01 y 1,000,000 Gram, con hasta dos decimales.');
+ const index=input.index,item=e.itemAt(index);if(!Number.isInteger(index)||!item||item.kind==='potion')fail('Selecciona un equipamiento.');if(!item.marketable)fail('Este equipo está ligado y no puede venderse.');if(Object.values(e.s.equipment).includes(index))fail('Desequipa el objeto antes de venderlo.');
+ const priceUnits=C.currency.toUnits(input.price);if(!priceUnits)fail('El precio debe estar entre 0.01 y 1,000,000 Gram, con hasta dos decimales.');const minimum=C.marketMinimums[item.rarity];if(priceUnits<minimum)fail('Precio mínimo para '+item.rarity+': '+C.currency.format(minimum)+' Gram.');
  const listing={id:randomUUID(),token,seller:account.id.slice(0,8),item:{...e.s.bag[index]},currency:'Gram',priceUnits,feeUnits:saleFee(priceUnits),netUnits:priceUnits-saleFee(priceUnits),status:'active',createdAt:Date.now()};next.listings.push(listing);e.s.bag[index]=null;
  }else if(action==='buy'||action==='cancel'){
  const listing=next.listings.find(l=>l.id===input.id&&l.status==='active');if(!listing)fail('Esta oferta ya no está disponible.',409);
@@ -32,7 +31,7 @@ function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirnam
  if(listing.token===token)fail('No puedes comprar tu propia oferta.');if(listing.currency!=='Gram')fail('Esta oferta antigua debe retirarse y publicarse de nuevo en Gram.');if(account.gramUnits<listing.priceUnits)fail('No tienes suficientes Gram.');if(!e.s.bag.some(slot=>!slot))fail('Necesitas un espacio libre en la mochila.');
  account.gramUnits-=listing.priceUnits;const fee=saleFee(listing.priceUnits);listing.feeUnits=fee;listing.netUnits=listing.priceUnits-fee;const seller=next.accounts[listing.token];seller.gramUnits=(seller.gramUnits||0)+listing.netUnits;seller.gramSalesUnits=(seller.gramSalesUnits||0)+listing.netUnits;next.gramFeesCollectedUnits=(next.gramFeesCollectedUnits||0)+fee;listing.status='sold';listing.buyer=account.id;
  }else{if(listing.token!==token)fail('Esta oferta pertenece a otro jugador.',403);if(!e.s.bag.some(slot=>!slot))fail('Libera un espacio para recuperar tu objeto.');listing.status='cancelled';}
- const index=e.s.bag.findIndex(slot=>!slot);e.s.bag[index]={...listing.item};
+ const index=e.s.bag.findIndex(slot=>!slot);e.s.bag[index]={...listing.item,marketable:true};
  }else if(action!=='sync')fail('Operación desconocida.');
  e.s.gramUnits=account.gramUnits;e.s.gramSalesUnits=account.gramSalesUnits;account.revision++;account.state=e.save();account.state.marketRevision=account.revision;commit(next);send(res,200,{state:account.state,revision:account.revision,player:account.id.slice(0,8)});return;
  }
