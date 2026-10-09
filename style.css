@@ -36,3 +36,7 @@ dialog{max-height:85dvh;overflow-y:auto}.bestiary-grid{display:grid;grid-templat
 .character-slot[data-rarity] b,.character-slot[data-rarity] em,#bag-detail[data-rarity]>h2,#bag-detail[data-rarity]>small{color:var(--rarity-color)}
 #bag-detail[data-rarity] .inventory-preview{border:2px solid var(--rarity-color);box-shadow:inset 0 0 18px color-mix(in srgb,var(--rarity-color) 18%,transparent)}
 .inventory-slot[data-rarity] .slot-equipped{color:var(--rarity-color)}
+
+.shop-entry{width:100%;margin:0 0 14px}.hero-mana{height:5px;background:#111b2e;border:1px solid #365379;margin:4px 0}.hero-mana i{display:block;height:100%;background:linear-gradient(#82bfff,#3d77d2)}#mana-value{font-size:9px;color:#82bfff}.potion-slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin:12px 0}.potion-slot{background:#1b2632;border:1px solid #d46b7e;padding:9px;text-align:center;border-radius:4px}.potion-slot.mana,.shop-potion.mana{border-color:#60a5fa}.potion-slot b{display:block;font:11px Georgia,serif;margin:5px 0}.potion-slot small{font-size:8px;letter-spacing:0;line-height:1.6}.potion-icon{display:block;width:50px;height:50px;margin:auto}.shop-potion{border:1px solid #d46b7e;padding:14px;margin:12px 0;background:#1b2632;border-radius:4px}.shop-potion h2{font-size:16px}.shop-potion .potion-icon{float:right}.shop-potion button{margin:4px;font-size:11px;padding:8px}#potion-auto{width:100%;margin-top:12px}
+
+.potion-slot{width:100%}.potion-clear{width:100%;margin-top:4px;padding:6px;font-size:10px}

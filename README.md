@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.22
+# Etherial Idle: Cazadores — 0.23
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -116,3 +116,17 @@ Cada mob derrotado tiene 15% de probabilidad de equipo; cada jefe 70%. Tras esa 
 ## Colores de rareza 0.22
 
 Común: gris; Poco común: verde; Raro: azul; Épico: morado; Legendario: naranja. Los bordes de la mochila y la ficha, los nombres y la vista de detalles usan estos colores, incluso al equipar un objeto. El nombre de la rareza sigue visible para identificarla sin depender solo del color.
+
+## Tienda y pociones automáticas 0.23
+
+La tienda se abre con el botón del combate. Compra 1 o 10 unidades con Blez; cada pila admite 100 unidades. Sin saldo o espacio suficiente se rechaza toda la compra sin cobrar.
+
+| Tamaño | Recuperación | Vida (Blez) | Maná (Blez) |
+|---|---:|---:|---:|
+| Pequeña | 40 | 50 | 45 |
+| Mediana | 100 | 100 | 90 |
+| Grande | 250 | 200 | 180 |
+
+Dos slots de consumibles en la ficha permiten seleccionar un tamaño para vida y otro para maná. Desde la mochila se pueden equipar, desequipar o usar manualmente. El uso automático consume como máximo una unidad por recurso y turno activo, al llegar al 50% de vida o 30% de maná. Continúa con otras pilas del mismo tipo; al agotarse, conserva la selección para la próxima compra. No consume estando pausado, muerto o recuperándose.
+
+Todas las clases tienen maná (100 + 5 por nivel adicional). Cada habilidad consume 10; sin suficiente maná el héroe sigue con ataques básicos. Recuperar tras morir, cambiar de héroe o viajar recarga el maná. La selección y el maná se guardan; las partidas antiguas empiezan con el maná lleno. Los frascos de vida son rojos y los de maná azules, con tamaño visual creciente.
