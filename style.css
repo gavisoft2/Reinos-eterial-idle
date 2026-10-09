@@ -49,3 +49,5 @@ dialog{max-height:85dvh;overflow-y:auto}.bestiary-grid{display:grid;grid-templat
 #bag-detail{position:relative}.item-market-symbol{position:absolute;right:0;top:4px;width:30px;height:30px;display:grid;place-items:center;background:#282438;border:1px solid #d8bd7e;border-radius:4px;font-size:21px;color:#f2d79c}.slot-market{position:absolute;right:3px;top:2px;font-size:12px;color:#f2d79c;text-shadow:0 1px 3px #000}.item-trade-state{font-size:11px;color:#cdb1ea}#market-sale-form{margin-top:16px;padding-top:8px;border-top:1px solid #726552}#market-sale-form label{font-size:11px;letter-spacing:0}#market-sale-form input{margin:8px 0}#market-sale-quote{font-size:11px;line-height:1.6}
 
 .market-tabs .market-tab-active{border-color:#e3c994;background:#4c4033;color:#ffe1a4}.market-history-card .market-sale-date{clear:both;padding-top:10px;border-top:1px solid #4b4e5c;color:#c2b8d9;line-height:1.6;font-size:11px}#market-sales-history>p{padding:14px;background:#1b2632;border:1px solid #454b5a;border-radius:4px}
+
+.item-sell{width:100%;margin-top:10px;border-color:#b59364}.item-sell:disabled{opacity:.45}

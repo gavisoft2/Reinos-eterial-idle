@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.28
+# Etherial Idle: Cazadores — 0.29
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -188,3 +188,20 @@ Ofertas muestra todos los artículos activos, incluidos los del jugador. En sus 
 Mis ventas muestra primero el historial de ventas completadas del vendedor, ordenado por la venta más reciente. Cada registro incluye equipo, rareza, nivel, precio, comisión, saldo neto recibido y día de la semana, fecha y hora (con segundos) en la zona America/Santo_Domingo. Debajo aparecen sus ofertas todavía activas.
 
 El servidor registra `soldAt` al completar la compra y lo guarda junto con la transacción. Solo entrega el historial al propietario de las ofertas. No incluye ofertas retiradas como ventas ni cambia la hora en los reintentos. Las ventas anteriores que no tenían fecha se muestran como Fecha no registrada, sin inventar una fecha. El historial compartido sigue requiriendo alojar el servidor Node.
+
+### Botones de venta en la mochila 0.29
+
+La ventana de estadísticas conserva Equipar/Desequipar y añade un botón de venta según la pieza:
+
+- Equipo comerciable: **Vender en mercado** abre directamente su formulario de publicación en Gram, conserva el ítem seleccionado y permite fijar el precio.
+- Equipo ligado: **Vender · N Blez** retira la pieza inmediatamente de la mochila, libera su espacio y suma el precio completo al saldo Blez. No usa Gram ni aplica la comisión del mercado.
+
+| Rareza | Venta inmediata (Blez) |
+|---|---:|
+| Común | 5 |
+| Poco común | 12 |
+| Raro | 20 |
+| Épico | 50 |
+| Legendario | 100 |
+
+No se pueden vender piezas equipadas; primero se desequipan. Las pociones mantienen sus botones de uso y no se venden. Las piezas comerciables no pueden liquidarse mediante la venta Blez. El retiro de la pieza y el saldo se guardan juntos en la partida; una segunda venta del mismo espacio vacío no vuelve a pagar. La venta Blez funciona en la página estática, y publicar en Gram sigue requiriendo el servidor compartido.
