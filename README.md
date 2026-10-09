@@ -1,4 +1,4 @@
-# Etherial Idle: Cazadores — 0.25
+# Etherial Idle: Cazadores — 0.26
 
 Prototipo móvil jugable, en español. Proyecto independiente para continuar el desarrollo; no modifica Reinos de Etherial.
 
@@ -131,13 +131,23 @@ Dos slots de consumibles en la ficha permiten seleccionar un tamaño para vida y
 
 Todas las clases tienen maná (100 + 5 por nivel adicional). Cada habilidad consume 10; sin suficiente maná el héroe sigue con ataques básicos. Recuperar tras morir, cambiar de héroe o viajar recarga el maná. La selección y el maná se guardan; las partidas antiguas empiezan con el maná lleno. Los frascos de vida son rojos y los de maná azules, con tamaño visual creciente.
 
-## Mercado compartido 0.24
+## Mercado Gram y retiros 0.26
 
-Botón flotante ⚖ en el lateral izquierdo, debajo de la mochila. La ventana tiene Ofertas, Vender equipo, Mis ventas y Actualizar. Las tarjetas muestran ilustración, clase, nivel, rareza, estadísticas y precio. Los jugadores publican equipo desequipado con precio entero en Blez, con una comisión única del 5% al completar la venta (máximo 20 ofertas activas). No se venden pociones.
+El botón flotante ⚖ del lateral izquierdo abre una cuadrícula de slots. Cada oferta muestra el ítem, rareza, nivel y precio en Gram. Toca un slot para ver sus estadísticas, vendedor y botón de compra. Los espacios vacíos se distinguen claramente; en GitHub Pages se muestra la cuadrícula vacía y el estado de conexión, sin simular ofertas de otros jugadores.
 
-El servidor aparta la pieza al publicar, entrega el objeto al comprador y deja los ingresos disponibles para el vendedor al abrir o actualizar el mercado. Retirar una oferta devuelve la pieza. Una mochila llena bloquea la compra o retirada; un objeto solo puede venderse una vez aunque lleguen compras simultáneas. Las ofertas persisten entre reinicios, y una revisión de cuenta permite recuperar operaciones cuya respuesta se perdió. El combate se pausa mientras la ventana está abierta y vuelve a su estado previo al cerrar.
+En Vender equipo, el jugador fija el precio en Gram con hasta dos decimales (0.01–1,000,000). Publicar aparta la pieza; retirar devuelve el equipo. Solo se vende equipamiento desequipado, máximo 20 ofertas activas por vendedor. La compra entrega la misma pieza con nivel y rareza; se rechaza sin saldo Gram o espacio en la mochila. Las compras simultáneas no duplican un objeto.
 
-### Ejecutar el juego con mercado entre jugadores
+### Comisiones y moneda Gram
+
+Una sola comisión del 5% cubre publicar y vender, cobrada únicamente al completar la venta. El comprador paga el precio anunciado y el vendedor recibe el 95% en su saldo Gram. Publicar o retirar no cobra un segundo importe. La interfaz muestra comisión y neto antes de publicar y en Mis ventas.
+
+Gram usa centésimas enteras en el servidor (`gramUnits`); su saldo y los ingresos netos acumulados (`gramSalesUnits`) se muestran en Retiros. Las comisiones se redondean hacia arriba a 0.01 Gram y se registran en `gramFeesCollectedUnits`. Las ventas no abonan Blez. Las cuentas nuevas empiezan con cero Gram; todavía no hay recargas o depósitos implementados. El servidor no acepta un saldo Gram inventado en una partida enviada por el cliente.
+
+Los retiros tienen un 10% de comisión. Retiros muestra saldo, monto bruto, comisión y neto, tanto para la cotización Gram como para la conversión Blez → TON ya existente. Ejemplo: vender por 100 Gram deja 95 Gram; retirar esos 95 muestra 9.50 de comisión y 85.50 netos. Los retiros son cotizaciones de prueba: no debitan el saldo ni envían fondos. No se ha definido equivalencia Gram/TON.
+
+Las antiguas ofertas en Blez se conservan, pero deben retirarse y republicarse en Gram para venderse. No se convierten precios ni saldos automáticamente; los créditos Blez de ventas anteriores se conservan.
+
+### Servidor compartido
 
 Requiere Node 20 o superior, sin paquetes adicionales:
 
@@ -145,18 +155,12 @@ Requiere Node 20 o superior, sin paquetes adicionales:
 npm start
 ```
 
-Abre `http://localhost:3000` en dos navegadores o perfiles separados para crear dos jugadores. Ambos comparten las ofertas del mismo servidor. La sesión se conserva en el navegador; todavía no usa identidad Telegram ni recuperación de cuentas. `PORT` configura el puerto. `MARKET_DATA_FILE` configura el archivo persistente (por defecto `.data/market.json`); conserva este archivo en un volumen persistente al alojarlo. Ejecuta una sola instancia del servidor con este almacenamiento.
+Abre `http://localhost:3000` en dos navegadores o perfiles separados para crear dos jugadores. Ambos comparten las ofertas del mismo servidor. La sesión se conserva en el navegador; todavía no usa identidad Telegram ni recuperación de cuentas. `PORT` configura el puerto y `MARKET_DATA_FILE` el archivo persistente (por defecto `.data/market.json`). Conserva este archivo en un volumen persistente y ejecuta una sola instancia.
 
 ```sh
 npm test
 ```
 
-GitHub Pages sirve la interfaz estática, pero no ejecuta este servidor. Allí el mercado muestra un mensaje de conexión pendiente; no crea ofertas falsas ni simula jugadores. Para habilitarlo por internet, aloja este mismo proyecto con Node y almacenamiento persistente, sirviendo el juego y `/api/market` desde el mismo dominio. El servidor solo expone archivos públicos permitidos.
+La cuadrícula y las cotizaciones funcionan en la interfaz estática, pero GitHub Pages no ejecuta el servidor. Para el mercado compartido por internet, aloja este proyecto con Node y almacenamiento persistente, sirviendo el juego y `/api/market` desde el mismo dominio.
 
-**Alcance del prototipo:** el servidor controla las transacciones, la propiedad de las ofertas y los cobros, pero aún recibe la partida y el saldo de combate del cliente. Antes de usar una economía real es necesario trasladar la validación del inventario, las ganancias y la identidad al servidor. Este mercado usa el saldo de prueba existente; no procesa TON.
-
-## Comisión del mercado 0.25
-
-Una sola comisión del 5% cubre publicar y vender. Se descuenta del precio de venta únicamente cuando alguien compra; publicar o retirar una oferta no cobra un segundo importe. El comprador paga el precio anunciado. El vendedor recibe el neto al actualizar el mercado. La interfaz muestra comisión y neto antes de publicar y en Mis ventas. El servidor registra las comisiones acumuladas en `feesCollected`; no las envía a una billetera TON.
-
-Los Blez se contabilizan en enteros: la comisión se redondea hacia arriba. Ejemplo: 1,000 Blez → 50 de comisión y 950 para el vendedor; 250 Blez → 13 de comisión y 237 para el vendedor. La compra y la comisión se guardan juntas para que las compras simultáneas y los reintentos no cobren dos veces.
+El servidor controla ofertas, saldo Gram, comisiones y transacciones; los inventarios y ganancias Blez de combate todavía vienen del cliente. Antes de una economía real falta validar combate e inventario en el servidor, identidad y depósitos. No se procesan pagos TON.

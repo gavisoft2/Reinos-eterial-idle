@@ -2,7 +2,7 @@
 // Shared prototype economy. Game snapshots remain client supplied until server combat is added.
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),{randomUUID}=require('node:crypto');
 const {Engine}=require('../js/engine');const C=require('../js/config');
-function saleFee(price){return Math.ceil(price*C.marketFeePercent/100);}
+function saleFee(price){return C.currency.fee(price,C.marketFeePercent);}
 function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirname,'../.data/market.json')}={}){
  let db=fs.existsSync(dataFile)?JSON.parse(fs.readFileSync(dataFile,'utf8')):{accounts:{},listings:[]};
  function commit(next){fs.mkdirSync(path.dirname(dataFile),{recursive:true});const temp=dataFile+'.tmp';fs.writeFileSync(temp,JSON.stringify(next));fs.renameSync(temp,dataFile);db=next;}
@@ -19,21 +19,22 @@ function createServer({dataFile=process.env.MARKET_DATA_FILE||path.join(__dirnam
  if(input.revision!==account.revision){send(res,409,{error:'Tu mercado tiene una operación pendiente de sincronizar.',revision:account.revision,state:account.state});return;}
  if(!input.state||input.state.version!==1)fail('Partida inválida.');const e=new Engine({...input.state,lastSeen:Date.now()});
  e.s.coins+=account.credits;account.credits=0;
+ account.gramUnits=Number.isSafeInteger(account.gramUnits)?account.gramUnits:0;account.gramSalesUnits=Number.isSafeInteger(account.gramSalesUnits)?account.gramSalesUnits:0;
  const action=input.action;
  if(action==='publish'){
  if(next.listings.filter(l=>l.token===token&&l.status==='active').length>=20)fail('Máximo 20 ofertas activas.');
  const index=input.index,item=e.itemAt(index);if(!Number.isInteger(index)||!item||item.kind==='potion')fail('Selecciona un equipamiento.');if(Object.values(e.s.equipment).includes(index))fail('Desequipa el objeto antes de venderlo.');
- if(!Number.isSafeInteger(input.price)||input.price<1||input.price>1000000000)fail('El precio debe ser de 1 a 1,000,000,000 Blez.');
- const listing={id:randomUUID(),token,seller:account.id.slice(0,8),item:{...e.s.bag[index]},price:input.price,fee:saleFee(input.price),net:input.price-saleFee(input.price),status:'active',createdAt:Date.now()};next.listings.push(listing);e.s.bag[index]=null;
+ const priceUnits=C.currency.toUnits(input.price);if(!priceUnits)fail('El precio debe estar entre 0.01 y 1,000,000 Gram, con hasta dos decimales.');
+ const listing={id:randomUUID(),token,seller:account.id.slice(0,8),item:{...e.s.bag[index]},currency:'Gram',priceUnits,feeUnits:saleFee(priceUnits),netUnits:priceUnits-saleFee(priceUnits),status:'active',createdAt:Date.now()};next.listings.push(listing);e.s.bag[index]=null;
  }else if(action==='buy'||action==='cancel'){
  const listing=next.listings.find(l=>l.id===input.id&&l.status==='active');if(!listing)fail('Esta oferta ya no está disponible.',409);
  if(action==='buy'){
- if(listing.token===token)fail('No puedes comprar tu propia oferta.');if(e.s.coins<listing.price)fail('No tienes suficientes Blez.');if(!e.s.bag.some(slot=>!slot))fail('Necesitas un espacio libre en la mochila.');
- e.s.coins-=listing.price;const fee=saleFee(listing.price);listing.fee=fee;listing.net=listing.price-fee;next.accounts[listing.token].credits+=listing.net;next.feesCollected=(next.feesCollected||0)+fee;listing.status='sold';listing.buyer=account.id;
+ if(listing.token===token)fail('No puedes comprar tu propia oferta.');if(listing.currency!=='Gram')fail('Esta oferta antigua debe retirarse y publicarse de nuevo en Gram.');if(account.gramUnits<listing.priceUnits)fail('No tienes suficientes Gram.');if(!e.s.bag.some(slot=>!slot))fail('Necesitas un espacio libre en la mochila.');
+ account.gramUnits-=listing.priceUnits;const fee=saleFee(listing.priceUnits);listing.feeUnits=fee;listing.netUnits=listing.priceUnits-fee;const seller=next.accounts[listing.token];seller.gramUnits=(seller.gramUnits||0)+listing.netUnits;seller.gramSalesUnits=(seller.gramSalesUnits||0)+listing.netUnits;next.gramFeesCollectedUnits=(next.gramFeesCollectedUnits||0)+fee;listing.status='sold';listing.buyer=account.id;
  }else{if(listing.token!==token)fail('Esta oferta pertenece a otro jugador.',403);if(!e.s.bag.some(slot=>!slot))fail('Libera un espacio para recuperar tu objeto.');listing.status='cancelled';}
  const index=e.s.bag.findIndex(slot=>!slot);e.s.bag[index]={...listing.item};
  }else if(action!=='sync')fail('Operación desconocida.');
- account.revision++;account.state=e.save();account.state.marketRevision=account.revision;commit(next);send(res,200,{state:account.state,revision:account.revision,player:account.id.slice(0,8)});return;
+ e.s.gramUnits=account.gramUnits;e.s.gramSalesUnits=account.gramSalesUnits;account.revision++;account.state=e.save();account.state.marketRevision=account.revision;commit(next);send(res,200,{state:account.state,revision:account.revision,player:account.id.slice(0,8)});return;
  }
  if(req.method!=='GET')fail('Ruta no disponible.',404);
  const files={'/':'index.html','/index.html':'index.html','/style.css':'style.css','/js/config.js':'js/config.js','/js/engine.js':'js/engine.js','/js/scene.js':'js/scene.js','/js/app.js':'js/app.js','/js/market.js':'js/market.js'};
